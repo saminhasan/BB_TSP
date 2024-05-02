@@ -10,55 +10,15 @@ from ortools.constraint_solver import pywrapcp
 def compute_euclidean_distance_matrix(locations):
     return distance.cdist(locations, locations, 'euclidean').astype(int)
 
-# def plot_store(store, random_shelves, path):
-#     fig, ax = plt.subplots()
-#     tab20 = plt.get_cmap('tab20')  # Using 'tab20' colormap
-#     jet = plt.get_cmap('jet')  # For drawing the path
-#     all_shelves_coords = np.array([(shelf.cx, shelf.cy) for row in store.shelves for shelf in row])
-#     padding = 10
-
-    
-#     for row in store.shelves:
-#         for shelf in row:
-#             rect = patches.Rectangle((shelf.cx - shelf.width/2, shelf.cy - shelf.length/2), shelf.width, shelf.length, linewidth=1, edgecolor='black', facecolor='none')
-#             ax.add_patch(rect)
-    
-#     selected_colors = [jet(i/len(random_shelves)) for i in range(len(random_shelves))]
-#     for color, shelf in zip(selected_colors, random_shelves):
-#         rect = patches.Rectangle((shelf.cx - shelf.width/2, shelf.cy - shelf.length/2), shelf.width, shelf.length, linewidth=2, edgecolor=color, facecolor=color, alpha=0.5)
-#         ax.add_patch(rect)
-#         ax.scatter(shelf.cx, shelf.cy, color=color, s=100, edgecolor='black')
-    
-#     # Draw the path
-#     for i in range(len(path) - 1):
-#         start, end = path[i], path[i+1]
-#         ax.plot([start[0], end[0]], [start[1], end[1]], 'o-', color=jet(i / (len(path) - 1)), linewidth=2)
-
-#     # Mark the start and goal points distinctly
-#     start_point = path[0]
-#     goal_point = path[-1]
-#     ax.scatter(start_point[0], start_point[1], color='red', s=150, marker='o', label='Start')
-#     ax.scatter(goal_point[0], goal_point[1], color='blue', s=150, marker='*', label='Goal')
-
-#     ax.set_xlabel('X position')
-#     ax.set_ylabel('Y position')
-#     ax.set_title('Store Layout with Path Sequence')
-#     ax.legend()  # Add legend to identify start and goal
-#     # ax.set_xlim(all_shelves_coords[:, 0].min() - padding, all_shelves_coords[:, 0].max() + padding)
-#     # ax.set_ylim(all_shelves_coords[:, 1].min() - padding, all_shelves_coords[:, 1].max() + padding)
-#     ax.set_aspect('equal')
-#     plt.show()
 
 def plot_store(store, random_shelves, path):
     fig, ax = plt.subplots()
     tab20 = plt.get_cmap('tab20')  # Using 'tab20' colormap for shelves
-    tab10 = plt.get_cmap('tab10')  # Using 'tab20' colormap for shelves
-    jet = plt.get_cmap('jet')  # For drawing the path
+    tab10 = plt.get_cmap('tab10')  # Using 'tab10' colormap for shelves
+    jet = plt.get_cmap('jet')  # For  path
 
-    # Collect all shelf coordinates for setting limits
     all_shelves_coords = np.array([(shelf.cx, shelf.cy) for row in store.shelves for shelf in row])
 
-    # Draw all shelves and the path in a single pass
     for i, row in enumerate(store.shelves):
         for shelf in row:
             # Default shelf appearance
@@ -67,7 +27,6 @@ def plot_store(store, random_shelves, path):
             linewidth = 1
             alpha = 1
             
-            # Check if the shelf is part of the path and style it
             if shelf in random_shelves:
                 color_index = random_shelves.index(shelf)
                 color = tab10(color_index / len(random_shelves))
@@ -75,17 +34,14 @@ def plot_store(store, random_shelves, path):
                 linewidth = 2
                 alpha = 0.5
 
-            # Draw shelf rectangle
             rect = patches.Rectangle((shelf.cx - shelf.width/2, shelf.cy - shelf.length/2), shelf.width, shelf.length,
                                      linewidth=linewidth, edgecolor=color, facecolor=fill, alpha=alpha)
             ax.add_patch(rect)
 
-    # Draw the path
     for i in range(len(path) - 1):
         start, end = path[i], path[i+1]
         ax.plot([start[0], end[0]], [start[1], end[1]], 'o-', color=jet(i / (len(path) - 1)), linewidth=2)
 
-    # Special handling for start and goal points
     start_point = path[0]
     goal_point = path[-1]
     ax.scatter(start_point[0], start_point[1], color='blue', s=100, marker='o', label='Start')

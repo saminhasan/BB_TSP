@@ -14,12 +14,9 @@ class Shelf:
         product_details = '\n'.join([f"\t{product.name} : {product.upc} " for product in self.products])
         return (f"Shelf Position: {self.position}\nProducts: \n{product_details}")
 
-# Example of using the Shelf class
 if __name__ == "__main__":
-    # Create some products to place on the shelf
     product1 = Product("LG TV", 123456789, 98765, "1A", "Electronics", 799.99)
     product2 = Product("Samsung Monitor", 987654321, 12345, "1A", "Electronics", 399.99)
     
-    # Create a shelf and add products to it
-    shelf_example = Shelf("1A", 5.0, 5.0, 10.0, 4.0, [product1, product2])
-    print(shelf_example)
+    shelf_test = Shelf("1A", 5.0, 5.0, 10.0, 4.0, [product1, product2])
+    print(shelf_test)

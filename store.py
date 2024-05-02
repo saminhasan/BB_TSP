@@ -11,12 +11,11 @@ class Store:
         self.populate_shelves()
 
     def populate_shelves(self):
-        # Constants for shelf dimensions and spacing
         shelf_width = 5.0
         shelf_length = 10.0
 
         def get_spacing():
-            return 5# random.randint(2, 4)  # Random integer between 2 and 4 for spacing
+            return 5# random.randint(2, 4)
 
         for i in range(self.rows):
             for j in range(self.cols):

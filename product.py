@@ -13,5 +13,5 @@ class Product:
                 f"Price: {self.price} $")
 
 if __name__ == "__main__":
-    product_example = Product("LG TV", 123456789, 98765, "1A", "Electronics", 799.99)
-    print(product_example)
+    product_test = Product("LG TV", 123456789, 98765, "1A", "Electronics", 799.99)
+    print(product_test)
