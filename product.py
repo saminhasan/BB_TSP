@@ -5,8 +5,8 @@ class Product:
         upc: int,
         sku: int,
         location: str,
-        category: str = '',
-        price: float = 0
+        category: str = "",
+        price: float = 0,
     ):
         self.name = name
         self.upc = upc
